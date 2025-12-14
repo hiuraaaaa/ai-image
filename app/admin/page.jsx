@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styles from './page.module.css'
 
 export default function AdminPage() {
@@ -39,31 +39,48 @@ export default function AdminPage() {
   if (!loggedIn) {
     return (
       <div className={styles.container}>
-        <h1>Admin Login</h1>
-        <input placeholder="Email" onChange={e => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-        <button onClick={login}>Login</button>
+        <h1 className={styles.title}>Admin Login</h1>
+
+        <input
+          className={styles.input}
+          placeholder="Email"
+          onChange={e => setEmail(e.target.value)}
+        />
+
+        <input
+          className={styles.input}
+          type="password"
+          placeholder="Password"
+          onChange={e => setPassword(e.target.value)}
+        />
+
+        <button className={styles.button} onClick={login}>
+          Login
+        </button>
       </div>
     )
   }
 
   return (
     <div className={styles.container}>
-      <h1>API Keys</h1>
-      <button onClick={createKey}>Generate API Key</button>
+      <h1 className={styles.title}>API Keys</h1>
+
+      <button className={styles.button} onClick={createKey}>
+        Generate API Key
+      </button>
 
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Key</th>
-            <th>Credits</th>
+            <th className={styles.th}>Key</th>
+            <th className={styles.th}>Credits</th>
           </tr>
         </thead>
         <tbody>
           {keys.map(k => (
             <tr key={k.id}>
-              <td>{k.key}</td>
-              <td>{k.credits}</td>
+              <td className={styles.td}>{k.key}</td>
+              <td className={styles.td}>{k.credits}</td>
             </tr>
           ))}
         </tbody>
