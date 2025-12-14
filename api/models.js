@@ -7,5 +7,5 @@ export default function handler(req, res) {
     sizes: m.meta.sizes
   }))
 
-  res.status(200).json({ success: true, data: list })
+  res.status(200).json(list) // langsung array
 }
