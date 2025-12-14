@@ -23,13 +23,14 @@ export default function Home() {
     fetch('/api/models')
       .then(res => res.json())
       .then(res => {
-        setModels(res.data)
-        setModel(res.data[0]?.id)
-        setSize(res.data[0]?.sizes[0])
+        setModels(res)
+        setModel(res[0]?.id)
+        setSize(res[0]?.sizes[0])
       })
   }, [])
 
   async function generate() {
+    if (!prompt || !model) return
     setLoading(true)
     setImages([])
 
@@ -53,13 +54,15 @@ export default function Home() {
 
       <PromptForm value={prompt} onChange={setPrompt} />
 
-      <div className={styles.row}>
-        <ModelSelect models={models} value={model} onChange={setModel} />
-        <SizeSelect model={models.find(m => m.id === model)} value={size} onChange={setSize} />
-        <OutputSelect value={output} onChange={setOutput} />
-      </div>
+      {models.length > 0 && (
+        <div className={styles.row}>
+          <ModelSelect models={models} value={model} onChange={setModel} />
+          <SizeSelect model={models.find(m => m.id === model)} value={size} onChange={setSize} />
+          <OutputSelect value={output} onChange={setOutput} />
+        </div>
+      )}
 
-      <button className={styles.button} onClick={generate} disabled={loading}>
+      <button className={styles.button} onClick={generate} disabled={loading || !prompt || !model}>
         Generate
       </button>
 
