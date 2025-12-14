@@ -1,14 +1,6 @@
-import registry from './registry'
+import { getAllModels } from './_lib/models'
 
-export function getAllModels() {
-  // mapping supaya frontend dapat {id, name, sizes}
-  return registry.map(m => ({
-    id: m.meta.id,
-    name: m.meta.name,
-    sizes: m.meta.sizes
-  }))
-}
-
-export function getModelById(id) {
-  return registry.find(m => m.meta.id === id)
+export default function handler(req, res) {
+  const models = getAllModels()
+  res.status(200).json(models) // langsung array
 }
