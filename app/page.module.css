@@ -13,6 +13,12 @@
   display: flex;
   gap: 12px;
   margin: 16px 0;
+  flex-wrap: wrap; /*  INI KUNCI */
+}
+
+.row > * {
+  flex: 1;
+  min-width: 140px; /*  BIAR DROPDOWN KELIATAN */
 }
 
 .button {
