@@ -24,8 +24,8 @@ export default function Home() {
       .then(res => res.json())
       .then(res => {
         setModels(res)
-        setModel(res[0]?.id)
-        setSize(res[0]?.sizes[0])
+        setModel(res[0]?.id || '')
+        setSize(res[0]?.sizes[0] || '1:1')
       })
   }, [])
 
@@ -54,15 +54,27 @@ export default function Home() {
 
       <PromptForm value={prompt} onChange={setPrompt} />
 
-      {models.length > 0 && (
-        <div className={styles.row}>
-          <ModelSelect models={models} value={model} onChange={setModel} />
-          <SizeSelect model={models.find(m => m.id === model)} value={size} onChange={setSize} />
-          <OutputSelect value={output} onChange={setOutput} />
-        </div>
-      )}
+      <div className={styles.row}>
+        <ModelSelect
+          models={models}
+          value={model}
+          onChange={setModel}
+          disabled={models.length === 0}
+        />
+        <SizeSelect
+          model={models.find(m => m.id === model)}
+          value={size}
+          onChange={setSize}
+          disabled={models.length === 0}
+        />
+        <OutputSelect value={output} onChange={setOutput} />
+      </div>
 
-      <button className={styles.button} onClick={generate} disabled={loading || !prompt || !model}>
+      <button
+        className={styles.button}
+        onClick={generate}
+        disabled={loading || !prompt || !model}
+      >
         Generate
       </button>
 
