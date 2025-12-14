@@ -55,26 +55,12 @@ export default function Home() {
       <PromptForm value={prompt} onChange={setPrompt} />
 
       <div className={styles.row}>
-        <ModelSelect
-          models={models}
-          value={model}
-          onChange={setModel}
-          disabled={models.length === 0}
-        />
-        <SizeSelect
-          model={models.find(m => m.id === model)}
-          value={size}
-          onChange={setSize}
-          disabled={models.length === 0}
-        />
+        <ModelSelect models={models} value={model} onChange={setModel} disabled={models.length === 0} />
+        <SizeSelect model={models.find(m => m.id === model)} value={size} onChange={setSize} disabled={models.length === 0} />
         <OutputSelect value={output} onChange={setOutput} />
       </div>
 
-      <button
-        className={styles.button}
-        onClick={generate}
-        disabled={loading || !prompt || !model}
-      >
+      <button className={styles.button} onClick={generate} disabled={loading || !prompt || !model}>
         Generate
       </button>
 
