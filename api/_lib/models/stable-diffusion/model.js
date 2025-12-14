@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const model = {
   meta: {
     id: 'stable-diffusion',
@@ -7,6 +9,7 @@ const model = {
   generate: async ({ prompt, ratio }) => {
     const url = 'https://api.nekolabs.web.id/image-generation/stable-diffusion/3.5'
     const res = await axios.get(url, { params: { prompt, ratio } })
+    if (!res.data?.result) throw new Error('Stable Diffusion API failed')
     return res.data.result
   }
 }
